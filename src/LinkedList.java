@@ -26,30 +26,48 @@ public class LinkedList {
         walkList(node.next, cb);
     }
 
+    private Node getPrevious(Node node) {
+        Node current = first;
+        while (current != null) {
+            if (current.next == node)
+                return current;
+            current = current.next;
+        }
+        return null;
+    }
+
+    private boolean isEmpty() {
+        return first == null;
+    }
+
     public void addFirst(int item) {
         var node = new Node(item);
-        node.next = first;
-        first = node;
 
-        if (last == null)
-            last = node;
+        if (isEmpty())
+            first = last = node;
+        else {
+            node.next = first;
+            first = node;
+        }
 
         size++;
     }
 
     public void addLast(int item) {
         var node = new Node(item);
-        last.next = node;
-        last = node;
 
-        if (first == null)
-            first = node;
+        if (isEmpty())
+            first = last = node;
+        else {
+            last.next = node;
+            last = node;
+        }
 
         size++;
     }
 
     public void removeFirst() {
-        if (first == null)
+        if (isEmpty())
             return;
 
         Node nextNode = first.next;
@@ -60,10 +78,10 @@ public class LinkedList {
     }
 
     public void removeLast() {
-        Node node = first;
-        if (node == null)
+        if (isEmpty())
             return;
 
+        Node node = first;
         if (first == last)
             first = last = node.next = null;
         else {
@@ -73,16 +91,6 @@ public class LinkedList {
         }
 
         size--;
-    }
-
-    private Node getPrevious(Node node) {
-        Node current = first;
-        while (current != null) {
-            if (current.next == node)
-                return current;
-            current = current.next;
-        }
-        return null;
     }
 
     public boolean contains(int number) {
@@ -120,6 +128,25 @@ public class LinkedList {
 
         return array;
     }
+
+    // reverse in place
+    public void reverse() {
+        if (isEmpty())
+            return;
+
+        Node previous = first;
+        Node current = first.next;
+        while (current != null) {
+            Node next = current.next;
+            current.next = previous;
+            previous = current;
+            current = next;
+        }
+
+        last = first;
+        last.next = null;
+        first = previous;
+    }
 }
 
 class TestLinkedList {
@@ -137,9 +164,11 @@ class TestLinkedList {
         integers.removeFirst();
         integers.removeLast();
 
-        System.out.println(Arrays.toString(integers.toArray()));
+        System.out.printf("Array %s\n", Arrays.toString(integers.toArray()));
         System.out.printf("index of `1` is %s.\n", Integer.toString(integers.indexOf(1)));
         System.out.printf("index of `2` is %s.\n", Integer.toString(integers.indexOf(2)));
         System.out.printf("size %s.\n", Integer.toString(integers.size()));
+        integers.reverse();
+        System.out.printf("reverse %s\n", Arrays.toString(integers.toArray()));
     }
 }

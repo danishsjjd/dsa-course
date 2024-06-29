@@ -99,7 +99,7 @@ public class Array<T> {
     }
 }
 
-class Test {
+class TestArray {
     public static void main(String[] args) {
         Array<Integer> numbers = new Array<>(2);
 

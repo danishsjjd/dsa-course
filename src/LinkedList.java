@@ -154,6 +154,9 @@ public class LinkedList {
     }
 
     public Node getKthFromTheEnd(int kth) {
+        // we can also use size like
+        // int index = size - Kth
+
         if (isEmpty())
             return null;
 
@@ -175,6 +178,74 @@ public class LinkedList {
 
         return KthNode;
     }
+
+    public void printMiddle() {
+        if (isEmpty())
+            return;
+
+        boolean isEven = size == 2 ? true : (size / 2f) % 2 == 0;
+        int center = size / 2 + (isEven ? 0 : 1);
+        var centerNods = new Node[2];
+        Node current = first;
+        int count = 1;
+
+        while (current != null) {
+            if (count == center) {
+                centerNods[0] = current;
+                if (!isEven)
+                    break;
+            } else if (center < count) {
+                centerNods[1] = current;
+                break;
+            }
+
+            current = current.next;
+            ++count;
+        }
+
+        if (!isEven) {
+            System.out.printf("middle node: %s\n", centerNods[0]);
+            return;
+        }
+
+        System.out.printf("middle nodes: %s\n", Arrays.toString(centerNods));
+    }
+
+    // --------- not my implementation
+    // public int getKthFromTheEnd(int k) {
+    // if (isEmpty())
+    // throw new IllegalStateException();
+
+    // var a = first;
+    // var b = first;
+    // for (int i = 0; i < k - 1; i++) {
+    // b = b.next;
+    // if (b == null)
+    // throw new IllegalArgumentException();
+    // }
+    // while (b != last) {
+    // a = a.next;
+    // b = b.next;
+    // }
+    // return a.value;
+    // }
+
+    // public void printMiddle() {
+    // if (isEmpty())
+    // throw new IllegalStateException();
+
+    // var a = first;
+    // var b = first;
+    // while (b != last && b.next != last) {
+    // b = b.next.next;
+    // a = a.next;
+    // }
+
+    // if (b == last)
+    // System.out.println(a.value);
+    // else
+    // System.out.println(a.value + ", " + a.next.value);
+    // }
 }
 
 class TestLinkedList {
@@ -193,6 +264,7 @@ class TestLinkedList {
         integers.removeLast();
 
         System.out.printf("Array %s\n", Arrays.toString(integers.toArray()));
+        integers.printMiddle();
         System.out.printf("index of `2` is %s.\n", Integer.toString(integers.indexOf(2)));
         System.out.printf("size %s.\n", Integer.toString(integers.size()));
         System.out.printf("3th kth %s.\n", integers.getKthFromTheEnd(3));

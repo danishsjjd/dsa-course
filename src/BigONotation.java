@@ -1,3 +1,4 @@
+@SuppressWarnings("unused")
 class BigONotation {
     // ---------------------------------------------------
     // Runtime complexity
@@ -68,6 +69,6 @@ class BigONotation {
         }
 
         // O(n) space
-        String[] _copy = new String[names.length];
+        String[] copy = new String[names.length];
     }
 }

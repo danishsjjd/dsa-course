@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.function.Function;
 
 public class LinkedList {
@@ -12,6 +13,7 @@ public class LinkedList {
 
     private Node first;
     private Node last;
+    private int size;
 
     public static void walkList(Node node, Function<Node, Boolean> cb) {
         if (node == null)
@@ -31,6 +33,8 @@ public class LinkedList {
 
         if (last == null)
             last = node;
+
+        size++;
     }
 
     public void addLast(int item) {
@@ -40,36 +44,45 @@ public class LinkedList {
 
         if (first == null)
             first = node;
+
+        size++;
     }
 
-    public void deleteFirst() {
+    public void removeFirst() {
         if (first == null)
             return;
 
         Node nextNode = first.next;
         first.next = null;
         first = nextNode;
+
+        size--;
     }
 
-    public void deleteLast() {
-        walkList(first, x -> {
-            if (x == first && x == last) {
-                first = null;
-                last = null;
-                x.next = null;
-                return true;
-            }
+    public void removeLast() {
+        Node node = first;
+        if (node == null)
+            return;
 
-            Node nextNode = x.next;
+        if (first == last)
+            first = last = node.next = null;
+        else {
+            Node previousNode = getPrevious(last);
+            last = previousNode;
+            last.next = null;
+        }
 
-            if (nextNode == last) {
-                last = x;
-                x.next = null;
-                return true;
-            }
+        size--;
+    }
 
-            return false;
-        });
+    private Node getPrevious(Node node) {
+        Node current = first;
+        while (current != null) {
+            if (current.next == node)
+                return current;
+            current = current.next;
+        }
+        return null;
     }
 
     public boolean contains(int number) {
@@ -91,11 +104,21 @@ public class LinkedList {
         return -1;
     }
 
-    public void print() {
-        walkList(first, x -> {
-            System.out.println(x.value);
-            return false;
-        });
+    public int size() {
+        return size;
+    }
+
+    public int[] toArray() {
+        int[] array = new int[size];
+        Node node = first;
+        int index = 0;
+
+        while (node != null) {
+            array[index++] = node.value;
+            node = node.next;
+        }
+
+        return array;
     }
 }
 
@@ -111,11 +134,12 @@ class TestLinkedList {
         integers.addLast(5);
         integers.addLast(6);
 
-        integers.deleteFirst();
-        integers.deleteLast();
+        integers.removeFirst();
+        integers.removeLast();
 
-        System.out.println(integers.indexOf(2));
-        System.out.println(integers.indexOf(1));
-        integers.print();
+        System.out.println(Arrays.toString(integers.toArray()));
+        System.out.printf("index of `1` is %s.\n", Integer.toString(integers.indexOf(1)));
+        System.out.printf("index of `2` is %s.\n", Integer.toString(integers.indexOf(2)));
+        System.out.printf("size %s.\n", Integer.toString(integers.size()));
     }
 }

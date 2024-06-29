@@ -9,6 +9,11 @@ public class LinkedList {
         public Node(int item) {
             value = item;
         }
+
+        @Override
+        public String toString() {
+            return Integer.toString(value);
+        }
     }
 
     private Node first;
@@ -147,6 +152,29 @@ public class LinkedList {
         last.next = null;
         first = previous;
     }
+
+    public Node getKthFromTheEnd(int kth) {
+        if (isEmpty())
+            return null;
+
+        Node current = first;
+        Node KthNode = null;
+        int count = 1;
+
+        while (current != null) {
+            if (count == kth) {
+                if (KthNode != null)
+                    KthNode = KthNode.next;
+                else
+                    KthNode = first;
+            } else
+                count++;
+
+            current = current.next;
+        }
+
+        return KthNode;
+    }
 }
 
 class TestLinkedList {
@@ -165,9 +193,9 @@ class TestLinkedList {
         integers.removeLast();
 
         System.out.printf("Array %s\n", Arrays.toString(integers.toArray()));
-        System.out.printf("index of `1` is %s.\n", Integer.toString(integers.indexOf(1)));
         System.out.printf("index of `2` is %s.\n", Integer.toString(integers.indexOf(2)));
         System.out.printf("size %s.\n", Integer.toString(integers.size()));
+        System.out.printf("3th kth %s.\n", integers.getKthFromTheEnd(3));
         integers.reverse();
         System.out.printf("reverse %s\n", Arrays.toString(integers.toArray()));
     }

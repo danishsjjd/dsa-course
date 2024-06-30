@@ -154,9 +154,6 @@ public class LinkedList {
     }
 
     public Node getKthFromTheEnd(int kth) {
-        // we can also use size like
-        // int index = size - Kth
-
         if (isEmpty())
             return null;
 
@@ -177,6 +174,28 @@ public class LinkedList {
         }
 
         return KthNode;
+    }
+
+    public Node getKthFromTheEndOptimized(int kth) {
+        if (isEmpty() || kth > size)
+            return null;
+
+        int offset = size - kth;
+        int count = 0;
+        Node current = first;
+        Node kthNode = null;
+
+        while (current != null) {
+            if (count == offset) {
+                kthNode = current;
+                break;
+            }
+
+            current = current.next;
+            count++;
+        }
+
+        return kthNode;
     }
 
     public void printMiddle() {
@@ -212,6 +231,39 @@ public class LinkedList {
     }
 
     // --------- not my implementation
+    public boolean hasLoop() {
+        var slow = first;
+        var fast = first;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if (slow == fast)
+                return true;
+        }
+
+        return false;
+    }
+
+    public static LinkedList createWithLoop() {
+        var list = new LinkedList();
+        list.addLast(10);
+        list.addLast(20);
+        list.addLast(30);
+
+        // Get a reference to 30
+        var node = list.last;
+
+        list.addLast(40);
+        list.addLast(50);
+
+        // Create the loop
+        list.last.next = node;
+
+        return list;
+    }
+
     // public int getKthFromTheEnd(int k) {
     // if (isEmpty())
     // throw new IllegalStateException();
@@ -267,8 +319,12 @@ class TestLinkedList {
         integers.printMiddle();
         System.out.printf("index of `2` is %s.\n", Integer.toString(integers.indexOf(2)));
         System.out.printf("size %s.\n", Integer.toString(integers.size()));
-        System.out.printf("3th kth %s.\n", integers.getKthFromTheEnd(3));
+        System.out.printf("3th kth %s == %s.\n", integers.getKthFromTheEnd(3), integers.getKthFromTheEndOptimized(3));
         integers.reverse();
         System.out.printf("reverse %s\n", Arrays.toString(integers.toArray()));
+        System.out.printf("has loop %s\n", integers.hasLoop());
+        System.out.println("------------------------------- Loop LinkedList --------------------------------");
+        var linkedListLoop = LinkedList.createWithLoop();
+        System.out.printf("has loop %s\n", linkedListLoop.hasLoop());
     }
 }

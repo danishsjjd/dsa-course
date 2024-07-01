@@ -1,23 +1,53 @@
+import java.util.ArrayDeque;
+import java.util.Queue;
 import java.util.Stack;
 
-class ReverseString {
-    public static String reverse(String string) {
-        var stringStack = new Stack<Character>();
-
-        for (char ch : string.toCharArray())
-            stringStack.push(ch);
-
+class Reverse {
+    public static String reverseString(String string) {
         StringBuffer reversed = new StringBuffer();
-
-        while (!stringStack.empty())
-            reversed.append(stringStack.pop());
+        for (int i = (string.length() - 1); i >= 0; i--)
+            reversed.append(string.charAt(i));
 
         return reversed.toString();
+
+        // not my implementation
+        // var stringStack = new Stack<Character>();
+
+        // for (char ch : string.toCharArray())
+        // stringStack.push(ch);
+
+        // StringBuffer reversed = new StringBuffer();
+
+        // while (!stringStack.empty())
+        // reversed.append(stringStack.pop());
+
+        // return reversed.toString();
+    }
+
+    public static void reverseQueue(Queue<Integer> queue) {
+        Stack<Integer> queueStack = new Stack<>();
+
+        while (!queue.isEmpty())
+            queueStack.push(queue.remove());
+
+        while (!queueStack.empty())
+            queue.add(queueStack.pop());
     }
 
     public static void test() {
-        var string = ReverseString.reverse("abcd");
-        System.out.println(string);
+        String string = "abc";
+        var reversedString = Reverse.reverseString(string);
+        System.out.printf("original string `%s` reversed string `%s`\n", string, reversedString);
+        System.out.println("------------------------------------------------");
+
+        Queue<Integer> queue = new ArrayDeque<>();
+        queue.add(10);
+        queue.add(20);
+        queue.add(30);
+        System.out.println(queue);
+        Reverse.reverseQueue(queue);
+        System.out.println(queue);
+        System.out.println("------------------------------------------------");
     }
 }
 
@@ -48,13 +78,14 @@ class Expression {
     }
 
     public static void test() {
-        System.out.println(Expression.isBalanced("(([1], + <2>){c})[a]"));
+        String expression = "(([1], + <2>){c})[a]";
+        System.out.printf("this `%s` expression is %s balanced\n", expression, Expression.isBalanced(expression));
     }
 }
 
 class TestStack {
     public static void main(String[] args) {
-        ReverseString.test();
+        Reverse.test();
         Expression.test();
     }
 }

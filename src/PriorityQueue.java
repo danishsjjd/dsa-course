@@ -58,5 +58,6 @@ class TestPriorityQueue {
         System.out.println(priorityQueue);
         priorityQueue.add(6);
         System.out.println(priorityQueue);
+        System.out.println(priorityQueue.remove());
     }
 }

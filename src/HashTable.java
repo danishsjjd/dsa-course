@@ -11,6 +11,7 @@ public class HashTable {
     }
   }
 
+  @SuppressWarnings("unchecked")
   private LinkedList<Entry>[] entries = new LinkedList[5];
 
   public void put(int key, String value) {

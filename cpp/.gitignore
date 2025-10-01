@@ -1,0 +1,19 @@
+# Build artifacts
+/build/
+/CMakeFiles/
+/CMakeCache.txt
+/*.sln
+/*.vcxproj*
+/compile_commands.json
+/Testing/
+/tests/*.log
+/tests/*.tmp
+
+# macOS
+.DS_Store
+
+# Editors
+.vscode/
+.idea/
+
+out/

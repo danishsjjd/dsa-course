@@ -42,6 +42,12 @@
     "typeinfo": "cpp",
     "variant": "cpp",
     "vector": "cpp",
-    "algorithm": "cpp"
+    "algorithm": "cpp",
+    "forward_list": "cpp",
+    "list": "cpp",
+    "deque": "cpp",
+    "queue": "cpp",
+    "__hash_table": "cpp",
+    "unordered_map": "cpp"
   }
 }

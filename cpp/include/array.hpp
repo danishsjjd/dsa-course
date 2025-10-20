@@ -7,8 +7,8 @@ class Array {
   Array(int length);
   void insert(int item);
   std::ostream& print(std::ostream& stream) const;
-  void removeAt(int index);
-  int indexOf(int item);
+  void remove_at(int index);
+  int indexof(int item);
   ~Array();
 
  private:

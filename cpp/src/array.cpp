@@ -1,4 +1,4 @@
-#include "Array.hpp"
+#include "array.hpp"
 
 Array::Array(int length) : length(length), items(new int[length]), count(0) {}
 Array::~Array() { delete[] items; }
@@ -32,7 +32,7 @@ std::ostream& Array::print(std::ostream& stream) const {
   return stream;
 }
 
-void Array::removeAt(int index) {
+void Array::remove_at(int index) {
   if (index < 0 || index >= this->count) {
     throw std::out_of_range("Index out of bounds");
   }
@@ -44,7 +44,7 @@ void Array::removeAt(int index) {
   this->count--;
 }
 
-int Array::indexOf(int item) {
+int Array::indexof(int item) {
   for (int i = 0; i < this->count; i++) {
     if (this->items[i] == item) {
       return i;

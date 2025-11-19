@@ -23,10 +23,13 @@ class LinkedList {
   void clear();
   bool contains(int) const;
   int indexof(int) const;
+  size_t size() const;
+  explicit operator int*() const;
 
  private:
   Node* front_node = nullptr;
   Node* back_node = nullptr;
+  size_t list_size = 0;
 };
 
 inline std::ostream& operator<<(std::ostream& stream, const LinkedList& list) {

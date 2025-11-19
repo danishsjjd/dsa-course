@@ -4,11 +4,8 @@
 
 namespace test {
 
-// Global failure counter shared across a single test executable.
-// C++17 inline variable prevents ODR violations across translation units.
 inline int failures = 0;
 
-// Prints a summary and returns an appropriate exit code for main().
 inline int exit_with_summary(const char* suite_name = nullptr) {
   if (failures == 0) {
     if (suite_name)

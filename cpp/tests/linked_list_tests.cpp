@@ -109,5 +109,17 @@ int main() {
     CHECK(list.back() == nullptr);
   }
 
+  {
+    LinkedList list;
+    list.push_back(10);
+    list.push_back(20);
+    list.push_back(30);
+
+    auto arr = static_cast<int*>(list);
+    CHECK(arr[0] == 10);
+    CHECK(arr[1] == 20);
+    CHECK(arr[2] == 30);
+  }
+
   return test::exit_with_summary("linked_list");
 }

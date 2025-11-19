@@ -1,6 +1,7 @@
 #include "linked_list.hpp"
 
-LinkedList::LinkedList() : front_node(nullptr), back_node(nullptr) {}
+LinkedList::LinkedList()
+    : front_node(nullptr), back_node(nullptr), list_size(0) {}
 
 LinkedList::~LinkedList() { clear(); }
 
@@ -12,6 +13,7 @@ void LinkedList::push_front(int value) {
     node->next = this->front_node;
     this->front_node = node;
   }
+  this->list_size++;
 }
 
 void LinkedList::push_back(int value) {
@@ -22,6 +24,7 @@ void LinkedList::push_back(int value) {
     this->back_node->next = node;
     this->back_node = node;
   }
+  this->list_size++;
 }
 
 const Node* LinkedList::front() const { return this->front_node; }
@@ -43,6 +46,7 @@ void LinkedList::remove_front() {
   }
 
   delete to_delete;
+  this->list_size--;
 }
 
 void LinkedList::remove_back() {
@@ -53,6 +57,7 @@ void LinkedList::remove_back() {
   if (this->front_node == this->back_node) {
     delete this->front_node;
     this->front_node = this->back_node = nullptr;
+    this->list_size--;
     return;
   }
 
@@ -65,6 +70,7 @@ void LinkedList::remove_back() {
   second_last_node->next = nullptr;
   delete this->back_node;
   this->back_node = second_last_node;
+  this->list_size--;
 }
 
 void LinkedList::clear() {
@@ -91,4 +97,25 @@ int LinkedList::indexof(int value) const {
   }
 
   return -1;
+}
+
+size_t LinkedList::size() const { return this->list_size; }
+
+LinkedList::operator int*() const {
+  size_t list_size = this->size();
+
+  if (list_size == 0) {
+    return nullptr;
+  }
+
+  int* arr = new int[list_size];
+
+  Node* current = this->front_node;
+  size_t index = 0;
+  while (current != nullptr) {
+    arr[index++] = current->value;
+    current = current->next;
+  }
+
+  return arr;
 }

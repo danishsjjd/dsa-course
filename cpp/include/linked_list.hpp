@@ -13,17 +13,20 @@ class LinkedList {
  public:
   LinkedList();
   ~LinkedList();
-  void push_front(int value);
-  void push_back(int value);
+
   const Node* front() const;
   const Node* back() const;
-  bool isEmpty();
+  size_t size() const;
+  void push_front(int value);
+  void push_back(int value);
   void remove_front();
   void remove_back();
   void clear();
-  bool contains(int) const;
+  bool isEmpty();
   int indexof(int) const;
-  size_t size() const;
+  bool contains(int) const;
+  void reverse();
+
   explicit operator int*() const;
 
  private:

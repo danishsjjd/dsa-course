@@ -121,5 +121,18 @@ int main() {
     CHECK(arr[2] == 30);
   }
 
+  {
+    LinkedList list;
+    list.push_back(10);
+    list.push_back(20);
+    list.push_back(30);
+    list.push_back(40);
+    list.reverse();
+
+    std::stringstream ss;
+    ss << list;
+    CHECK(ss.str() == "[40, 30, 20, 10]\n");
+  }
+
   return test::exit_with_summary("linked_list");
 }

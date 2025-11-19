@@ -31,7 +31,7 @@ const Node* LinkedList::front() const { return this->front_node; }
 
 const Node* LinkedList::back() const { return this->back_node; }
 
-bool LinkedList::isEmpty() { return this->front_node == nullptr; }
+bool LinkedList::isEmpty() { return this->list_size == 0; }
 
 void LinkedList::remove_front() {
   if (isEmpty()) {
@@ -81,6 +81,21 @@ void LinkedList::clear() {
 
 bool LinkedList::contains(int value) const {
   return this->indexof(value) != -1;
+}
+
+void LinkedList::reverse() {
+  Node* previous = nullptr;
+  auto current = this->front_node;
+
+  while (current) {
+    auto temp = current->next;
+    current->next = previous;
+    previous = current;
+    current = temp;
+  }
+
+  this->back_node = this->front_node;
+  this->front_node = previous;
 }
 
 int LinkedList::indexof(int value) const {

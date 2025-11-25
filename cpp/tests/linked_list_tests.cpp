@@ -1,5 +1,6 @@
 #include <iostream>
 #include <sstream>
+#include <stdexcept>
 
 #include "linked_list.hpp"
 #include "test_utils.hpp"
@@ -132,6 +133,46 @@ int main() {
     std::stringstream ss;
     ss << list;
     CHECK(ss.str() == "[40, 30, 20, 10]\n");
+  }
+
+  // get_kth_from_the_end
+  {
+    auto throws_out_of_range = [&](LinkedList& l, size_t k) {
+      bool thrown = false;
+      try {
+        (void)l.get_kth_from_the_end(k);
+      } catch (const std::out_of_range&) {
+        thrown = true;
+      }
+      return thrown;
+    };
+
+    LinkedList list;
+
+    CHECK(throws_out_of_range(list, 0));
+    CHECK(throws_out_of_range(list, 1));
+
+    list.push_back(10);
+    auto node0 = list.get_kth_from_the_end(1);
+    CHECK(node0->value == 10);
+    CHECK(throws_out_of_range(list, 2));
+
+    list.push_back(20);
+    list.push_back(30);
+    list.push_back(40);
+    list.push_back(50);
+
+    auto n0 = list.get_kth_from_the_end(1);
+    CHECK(n0 && n0->value == 50);
+
+    auto n1 = list.get_kth_from_the_end(2);
+    CHECK(n1 && n1->value == 40);
+
+    auto n4 = list.get_kth_from_the_end(5);
+    CHECK(n4 && n4->value == 10);
+
+    CHECK(throws_out_of_range(list, 6));
+    CHECK(throws_out_of_range(list, 100));
   }
 
   return test::exit_with_summary("linked_list");

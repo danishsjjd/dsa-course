@@ -98,6 +98,29 @@ void LinkedList::reverse() {
   this->front_node = previous;
 }
 
+Node* LinkedList::get_kth_from_the_end(size_t k) {
+  auto current = this->front_node;
+  Node* found = nullptr;
+  size_t index = 1;
+
+  while (current) {
+    if (index == k) {
+      found = this->front_node;
+    } else if (found != nullptr) {
+      found = found->next;
+    }
+
+    current = current->next;
+    index++;
+  }
+
+  if (found != nullptr) {
+    return found;
+  }
+
+  throw std::out_of_range("k is larger than the list size");
+}
+
 int LinkedList::indexof(int value) const {
   size_t index = 0;
   Node* to_find = this->front_node;

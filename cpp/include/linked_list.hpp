@@ -26,6 +26,7 @@ class LinkedList {
   int indexof(int) const;
   bool contains(int) const;
   void reverse();
+  Node* get_kth_from_the_end(size_t k);
 
   explicit operator int*() const;
 

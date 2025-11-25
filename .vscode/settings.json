@@ -48,6 +48,11 @@
     "deque": "cpp",
     "queue": "cpp",
     "__hash_table": "cpp",
-    "unordered_map": "cpp"
+    "unordered_map": "cpp",
+    "cstdarg": "cpp",
+    "ctime": "cpp",
+    "optional": "cpp",
+    "ratio": "cpp",
+    "stack": "cpp"
   }
 }

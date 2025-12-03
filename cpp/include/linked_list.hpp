@@ -1,5 +1,4 @@
 #pragma once
-
 #include <ostream>
 
 struct Node {
@@ -14,19 +13,23 @@ class LinkedList {
   LinkedList();
   ~LinkedList();
 
-  const Node* front() const;
-  const Node* back() const;
-  size_t size() const;
   void push_front(int value);
   void push_back(int value);
   void remove_front();
   void remove_back();
   void clear();
-  bool isEmpty();
-  int indexof(int) const;
-  bool contains(int) const;
   void reverse();
   Node* get_kth_from_the_end(size_t k);
+  bool create_loop(int from);
+
+  const Node* front() const;
+  const Node* back() const;
+  size_t size() const;
+  bool isEmpty() const;
+  int indexof(int) const;
+  bool contains(int) const;
+  std::string print_middle() const;
+  bool has_loop() const;
 
   explicit operator int*() const;
 

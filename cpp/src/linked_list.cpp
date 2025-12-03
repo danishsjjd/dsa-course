@@ -1,5 +1,7 @@
 #include "linked_list.hpp"
 
+#include <sstream>
+
 LinkedList::LinkedList()
     : front_node(nullptr), back_node(nullptr), list_size(0) {}
 
@@ -31,7 +33,7 @@ const Node* LinkedList::front() const { return this->front_node; }
 
 const Node* LinkedList::back() const { return this->back_node; }
 
-bool LinkedList::isEmpty() { return this->list_size == 0; }
+bool LinkedList::isEmpty() const { return this->list_size == 0; }
 
 void LinkedList::remove_front() {
   if (isEmpty()) {
@@ -81,6 +83,89 @@ void LinkedList::clear() {
 
 bool LinkedList::contains(int value) const {
   return this->indexof(value) != -1;
+}
+
+bool isEven(int value) { return value % 2 == 0; }
+
+std::string LinkedList::print_middle() const {
+  if (isEmpty()) {
+    return "";
+  }
+
+  auto a = this->front_node;
+  auto b = this->front_node;
+  while (b != this->back_node && b->next != this->back_node) {
+    b = b->next->next;
+    a = a->next;
+  }
+
+  std::stringstream ss;
+  if (b == this->back_node) {
+    ss << a->value;
+  } else {
+    ss << a->value << b->value;
+  }
+
+  return ss.str();
+
+  // INFO: below is how I originally implement it
+  // auto current = this->front_node;
+  // int size = 1;
+
+  // auto middle1 = current;
+  // Node* middle2 = nullptr;
+
+  // while (current) {
+  //   if (isEven(size)) {
+  //     middle2 = middle1->next;
+  //   } else if (middle2 != nullptr) {
+  //     middle1 = middle2;
+  //     middle2 = nullptr;
+  //   }
+
+  //   current = current->next;
+  //   size++;
+  // }
+
+  // std::stringstream ss;
+  // if (middle1 != nullptr) {
+  //   ss << middle1->value;
+  //   if (middle2 != nullptr) {
+  //     ss << middle2->value;
+  //   }
+  // }
+
+  // return ss.str();
+}
+
+bool LinkedList::create_loop(int from) {
+  auto current = this->front_node;
+  while (current) {
+    if (current->value == from) {
+      this->back_node->next = current;
+      return true;
+    }
+
+    current = current->next;
+  }
+
+  return false;
+}
+
+bool LinkedList::has_loop() const {
+  auto slow = this->front_node;
+  auto fast = this->front_node;
+
+  while (fast != nullptr && fast->next != nullptr) {
+    slow = slow->next;
+    fast = fast->next->next;
+
+    if (slow == fast) {
+      return true;
+    }
+  };
+
+  return false;
 }
 
 void LinkedList::reverse() {

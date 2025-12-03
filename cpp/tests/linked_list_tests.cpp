@@ -175,5 +175,42 @@ int main() {
     CHECK(throws_out_of_range(list, 100));
   }
 
+  // print_middle
+  {
+    LinkedList list;
+    list.push_back(1);
+    list.push_back(2);
+    list.push_back(3);
+    list.push_back(4);
+    std::stringstream ss;
+    ss << list.print_middle();
+    CHECK(ss.str() == "23");
+    list.push_back(5);
+    list.push_back(6);
+    list.push_back(7);
+    list.push_back(8);
+    list.push_back(9);
+    list.push_back(10);
+    list.push_back(11);
+    {
+      std::stringstream ss;
+      ss << list.print_middle();
+      CHECK(ss.str() == "6");
+    }
+  }
+
+  // create_loop & has_loop
+  {
+    LinkedList list;
+    list.push_back(1);
+    list.push_back(2);
+    list.push_back(3);
+    list.push_back(4);
+    list.push_back(5);
+    CHECK(list.has_loop() == false);
+    CHECK(list.create_loop(3));
+    CHECK(list.has_loop());
+  }
+
   return test::exit_with_summary("linked_list");
 }

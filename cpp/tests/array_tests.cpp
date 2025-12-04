@@ -1,6 +1,5 @@
 #include <iostream>
 #include <sstream>
-#include <stdexcept>
 
 #include "array.hpp"
 #include "test_utils.hpp"

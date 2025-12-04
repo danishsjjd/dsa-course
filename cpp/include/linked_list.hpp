@@ -16,7 +16,6 @@ class LinkedList {
   void push_front(int value);
   void push_back(int value);
   void remove_front();
-  void remove_back();
   void clear();
   void reverse();
   Node* get_kth_from_the_end(size_t k);
@@ -25,7 +24,7 @@ class LinkedList {
   const Node* front() const;
   const Node* back() const;
   size_t size() const;
-  bool isEmpty() const;
+  bool is_empty() const;
   int indexof(int) const;
   bool contains(int) const;
   std::string print_middle() const;

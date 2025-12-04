@@ -9,7 +9,7 @@ int main() {
   // Empty list
   {
     LinkedList list;
-    CHECK(list.isEmpty());
+    CHECK(list.is_empty());
     CHECK(list.front() == nullptr);
     CHECK(list.back() == nullptr);
     std::stringstream ss;
@@ -18,8 +18,8 @@ int main() {
 
     // Removing from empty should be no-op
     list.remove_front();
-    list.remove_back();
-    CHECK(list.isEmpty());
+    list.remove_front();
+    CHECK(list.is_empty());
     CHECK(list.front() == nullptr);
     CHECK(list.back() == nullptr);
   }
@@ -28,7 +28,7 @@ int main() {
   {
     LinkedList list;
     list.push_back(3);
-    CHECK(!list.isEmpty());
+    CHECK(!list.is_empty());
     CHECK(list.front() && list.front()->value == 3);
     CHECK(list.back() && list.back()->value == 3);
     std::stringstream ss;
@@ -78,17 +78,17 @@ int main() {
       CHECK(ss.str() == "[3, 4]\n");
     }
 
-    list.remove_back();  // [3]
-    CHECK(list.front() && list.front()->value == 3);
-    CHECK(list.back() && list.back()->value == 3);
+    list.remove_front();  // [4]
+    CHECK(list.front() && list.front()->value == 4);
+    CHECK(list.back() && list.back()->value == 4);
     {
       std::stringstream ss;
       ss << list;
-      CHECK(ss.str() == "[3]\n");
+      CHECK(ss.str() == "[4]\n");
     }
 
     list.remove_front();
-    CHECK(list.isEmpty());
+    CHECK(list.is_empty());
     CHECK(list.front() == nullptr);
     CHECK(list.back() == nullptr);
     {
@@ -105,7 +105,7 @@ int main() {
     list.push_back(20);
     list.push_back(30);
     list.clear();
-    CHECK(list.isEmpty());
+    CHECK(list.is_empty());
     CHECK(list.front() == nullptr);
     CHECK(list.back() == nullptr);
   }

@@ -1,5 +1,6 @@
 import java.util.LinkedList;
 
+// with chaining
 public class HashTable {
   private class Entry {
     private int key;

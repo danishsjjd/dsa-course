@@ -156,6 +156,11 @@ std::string LinkedList::print_middle() const {
 }
 
 bool LinkedList::has_loop() const {
+  // Floyd’s Cycle-finding Algorithm
+  // Use two pointers (slow and fast) to traverse the list. Move the slow
+  // pointer one step forward and the fast pointer two steps forward. If there’s
+  // a loop, at some point, the fast pointer will meet the slow pointer and
+  // overtake it.
   auto slow = this->front_node;
   auto fast = this->front_node;
 

@@ -1,5 +1,6 @@
 import java.util.Arrays;
 
+// with linear probing
 public class HashMap {
 
     private class Entry {

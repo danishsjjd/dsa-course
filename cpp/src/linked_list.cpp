@@ -68,7 +68,7 @@ void LinkedList::reverse() {
   this->front_node = previous;
 }
 
-Node* LinkedList::get_kth_from_the_end(size_t k) {
+LinkedList::Node* LinkedList::get_kth_from_the_end(size_t k) {
   auto current = this->front_node;
   Node* found = nullptr;
   size_t index = 1;
@@ -105,9 +105,9 @@ bool LinkedList::create_loop(int from) {
   return false;
 }
 
-const Node* LinkedList::front() const { return this->front_node; }
+const LinkedList::Node* LinkedList::front() const { return this->front_node; }
 
-const Node* LinkedList::back() const { return this->back_node; }
+const LinkedList::Node* LinkedList::back() const { return this->back_node; }
 
 size_t LinkedList::size() const { return this->list_size; }
 

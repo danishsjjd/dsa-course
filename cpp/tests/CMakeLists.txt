@@ -9,3 +9,7 @@ add_test(NAME linked_list COMMAND linked_list_tests)
 add_executable(queue_tests queue_tests.cpp)
 target_link_libraries(queue_tests PRIVATE dsa dsa_core)
 add_test(NAME queue COMMAND queue_tests)
+
+add_executable(tree_tests tree_tests.cpp)
+target_link_libraries(tree_tests PRIVATE dsa dsa_core)
+add_test(NAME tree COMMAND tree_tests)

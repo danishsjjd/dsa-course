@@ -23,6 +23,7 @@ class Tree {
   std::string treverse_post_order() const;
   int height() const;
   int min() const;
+  bool operator==(const Tree& tree) const;
 
   friend std::ostream& operator<<(std::ostream& stream, const Tree& tree);
 
@@ -32,6 +33,8 @@ class Tree {
   static std::string treverse_in_order_ascending(Node* from);
   static std::string treverse_in_order_descending(Node* from);
   static std::string treverse_post_order(Node* from);
+  static bool equals(Node* first, Node* second);
+  static int height(Node* node);
 
   static void print_tree(std::ostream& stream, Node* node,
                          const std::string& prefix, bool is_left) {

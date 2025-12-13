@@ -24,7 +24,26 @@ int main() {
     CHECK(tree.treverse_in_order_descending() == "10987641");
     CHECK(tree.treverse_post_order() == "16481097");
 
+    CHECK(tree.height() == 2);
+    CHECK(tree.min() == 1);
+
     std::cout << tree;
+
+    {
+      Tree tree2;
+      auto exp = tree == tree2;
+      CHECK(exp == false);
+      tree2.insert(7);
+      tree2.insert(4);
+      tree2.insert(9);
+      tree2.insert(1);
+      tree2.insert(6);
+      tree2.insert(8);
+      auto exp2 = tree == tree2;
+      CHECK(exp2 == false);
+      tree2.insert(10);
+      CHECK(tree == tree2);
+    }
   }
 
   return test::exit_with_summary("tree");

@@ -77,6 +77,46 @@ std::string Tree::treverse_post_order() const {
   return this->treverse_post_order(this->root);
 }
 
+int Tree::height() const {
+  return height(this->root);
+}
+
+int Tree::height(Node* node) {
+  if (node == nullptr) {
+    return -1;
+  }
+
+  if (node->left_child == nullptr && node->right_child == nullptr) {
+    return 0;
+  }
+
+  return 1 + std::max(height(node->left_child), height(node->right_child));
+}
+
+int Tree::min() const {
+  auto current = this->root;
+
+  if (current == nullptr) {
+    throw std::out_of_range("Tree is empty");
+  }
+
+  while (current) {
+    auto next = current->left_child;
+
+    if (!next) {
+      break;
+    }
+
+    current = next;
+  }
+
+  return current->value;
+}
+
+bool Tree::operator==(const Tree& tree) const {
+  return equals(tree.root, this->root);
+}
+
 std::string Tree::treverse_pre_order(Node* from) {
   if (from == nullptr) {
     return "";
@@ -151,4 +191,18 @@ std::string Tree::treverse_post_order(Node* from) {
   results += std::to_string(from->value);
 
   return results;
+}
+
+bool Tree::equals(Node* first, Node* second) {
+  if (first == nullptr && second == nullptr) {
+    return true;
+  }
+
+  if (first != nullptr && second != nullptr) {
+    return first->value == second->value &&
+           equals(first->left_child, second->left_child) &&
+           equals(first->right_child, second->right_child);
+  }
+
+  return false;
 }
